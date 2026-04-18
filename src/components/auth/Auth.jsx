@@ -320,15 +320,11 @@ const Auth = () => {
 const textFieldStyle = {
     '& .MuiOutlinedInput-root': {
         color: 'var(--secondary)',
-        '& fieldset': { borderColor: 'rgba(255, 255, 232, 0.3)' },
+        '& fieldset': { borderColor: 'rgba(255, 255, 232, 0.4)' },
         '&:hover fieldset': { borderColor: 'var(--accent)' },
         '&.Mui-focused fieldset': { borderColor: 'var(--accent)' },
-        '& input::placeholder': {
-            color: 'var(--secondary)',
-            opacity: 0.5,
-        },
     },
-    '& .MuiInputLabel-root': { color: 'rgba(255, 255, 232, 0.85)' },
+    '& .MuiInputLabel-root': { color: 'rgba(255, 255, 232, 0.9)', fontWeight: 500 },
     '& .MuiInputLabel-root.Mui-focused': { color: 'var(--accent)' },
 };
 

@@ -5,9 +5,9 @@ import Auth from "./components/auth/Auth";
 import PropertyList from "./components/properties/PropertyList";
 import PropertyDetail from "./components/properties/PropertyDetail";
 import Seeder from "./components/properties/Seeder";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminDashboard from "./components/admin/AdminDashboard";
 import fondo from "./assets/background.png";
-
-const Admin = () => <div className="pt-32 px-12 text-center h-screen">Panel de Administración (En construcción)</div>;
 
 function App() {
   return (
@@ -33,7 +33,14 @@ function App() {
             <Route path="/productos" element={<PropertyList />} />
             <Route path="/detalles/:id" element={<PropertyDetail />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/admin/*" element={<Admin />} />
+            <Route 
+              path="/admin/*" 
+              element={
+                <ProtectedRoute requiredRole="realtor">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/seeder" element={<Seeder />} />
           </Routes>
         </main>

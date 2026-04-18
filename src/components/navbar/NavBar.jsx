@@ -19,11 +19,6 @@ const productSubLinks = [
     { title: "Otros", type: "otro" },
 ];
 
-const adminSubLinks = [
-    { title: "Propiedades", link: "/admin/propiedades" },
-    { title: "Usuarios", link: "/admin/usuarios" },
-];
-
 const navBarSocialnetworks = [
     { id: 1, title: "Facebook", link: "https://www.facebook.com", icon: "bi bi-facebook" },
     { id: 2, title: "Instagram", link: "https://www.instagram.com", icon: "bi bi-instagram" },
@@ -34,7 +29,6 @@ const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [productsOpen, setProductsOpen] = useState(false);
-    const [adminOpen, setAdminOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
 
     const { user, userData, isRealtor } = useAuth();
@@ -132,35 +126,15 @@ const NavBar = () => {
                             </React.Fragment>
                         ))}
 
-                        {/* Admin Dropdown (Realtor only) */}
+                        {/* Admin Link (Realtor only) */}
                         {isRealtor && (
-                            <li className='relative' 
-                                onMouseEnter={() => setAdminOpen(true)}
-                                onMouseLeave={() => setAdminOpen(false)}
-                            >
-                                <button className='flex items-center text-sm font-medium text-[var(--accent)] hover:brightness-110 transition-colors px-4 cursor-pointer font-bold'>
-                                    ADMINISTRAR <i className={`bi bi-chevron-down ml-1 text-[10px] transition-transform ${adminOpen ? 'rotate-180' : ''}`}></i>
-                                </button>
-                                <AnimatePresence>
-                                    {adminOpen && (
-                                        <motion.div 
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 10 }}
-                                            className='absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 glass rounded-xl overflow-hidden shadow-xl py-2'
-                                        >
-                                            {adminSubLinks.map((sub) => (
-                                                <Link 
-                                                    key={sub.link}
-                                                    to={sub.link}
-                                                    className='block px-4 py-2 text-sm hover:bg-[var(--accent-muted)] transition-colors'
-                                                >
-                                                    {sub.title}
-                                                </Link>
-                                            ))}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                            <li>
+                                <Link 
+                                    to="/admin" 
+                                    className='text-sm font-bold text-[var(--accent)] hover:brightness-110 transition-colors px-4'
+                                >
+                                    ADMINISTRAR
+                                </Link>
                             </li>
                         )}
                     </ul>
@@ -272,12 +246,9 @@ const NavBar = () => {
                             ))}
                             {isRealtor && (
                                 <li className='border-t border-[var(--glass-border)] pt-4'>
-                                    <span className='text-sm text-[var(--accent)] block mb-2 font-bold'>ADMINISTRAR</span>
-                                    <div className='grid grid-cols-1 gap-2 pl-2'>
-                                        {adminSubLinks.map(sub => (
-                                            <Link key={sub.link} to={sub.link} onClick={toggleMenu} className='text-sm'>{sub.title}</Link>
-                                        ))}
-                                    </div>
+                                    <Link to="/admin" onClick={toggleMenu} className='text-lg font-bold text-[var(--accent)]'>
+                                        ADMINISTRAR
+                                    </Link>
                                 </li>
                             )}
                         </ul>

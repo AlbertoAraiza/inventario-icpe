@@ -34,6 +34,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { GoogleMap, useJsApiLoader, MarkerF } from '@react-google-maps/api';
 import { useAuth } from '../../context/AuthContext';
+import { functions } from '../../utility/firebase';
+import { httpsCallable } from 'firebase/functions';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -131,13 +133,29 @@ const PropertyDetail = () => {
                 }
             });
 
-            setTimeout(() => {
+            try {
+                const sendEmail = httpsCallable(functions, 'sendAppointmentEmail');
+                await sendEmail({
+                    customerName: name,
+                    customerPhone: phone,
+                    propertyAddress: property.address,
+                    propertyCity: property.city,
+                    propertyPrice: property.price
+                });
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Solicitud enviada',
                     text: `Nos comunicaremos contigo a la brevedad, ${name}.`
                 });
-            }, 2000);
+            } catch (error) {
+                console.error("Error calling function:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo enviar la solicitud. Por favor intenta más tarde.'
+                });
+            }
         }
     };
 

@@ -133,7 +133,7 @@ const PropertyList = () => {
 
             <Grid container spacing={4}>
                 {filteredProperties.map((prop, index) => (
-                    <Grid item xs={12} sm={6} lg={4} key={prop.id}>
+                    <Grid item xs={12} sm={6} md={4} key={prop.id}>
                         <Fade in={true} timeout={500 + index * 100}>
                             <Box>
                                 <PropertyCard property={prop} />
